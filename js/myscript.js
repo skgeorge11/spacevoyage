@@ -7,6 +7,7 @@ var firstMateOrigin = firstMateAttribute = 60;
 var randomObjectLength = randomObjectType.length;
 var txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length -1)];
 var currentEpisodeType =window[txtEpisodeType];
+var currentProblemAttributeArray = [];
 //console.log(currentEpisodeType);
 
 //console.logs
@@ -66,9 +67,10 @@ function fillSelectOptions()
 
         console.log( "fillSelectOptions has been run.");
     }
-function retrieveAttribute()
-    { //break into two functions (or delay window effect) so that I can select attributes as well as thier values.
-        var currentProblemAttributeArray = [];
+
+function retrieveAttributeValue()
+    {
+        currentProblemAttributeArray = [];
         var currentProblemAttributeLength = currentEpisodeType.problemAttribute.length;
         var i =0;
         while (i < currentProblemAttributeLength){
@@ -76,10 +78,17 @@ function retrieveAttribute()
             currentProblemAttributeArray.push (tempAttribute);
             ++i;
         }
-        console.log (currentProblemAttributeArray);
+        // console.log (currentProblemAttributeArray);
+        // console.log (currentEpisodeType.problemAttribute);
         return currentProblemAttributeArray;
 
     }
+
+function adjustAttribute(posOrNeg)
+{
+    adjustAttributeValue = posOrNeg * randomNumberGenerator(100);
+    return adjustAttributeValue;
+}
 
 function handleClick()
       {
@@ -92,18 +101,26 @@ function handleClick()
 
         var selectValue = document.getElementById("mySelect").value;
 
-        var attributeArray = retrieveAttribute();
+        var attributeArray = retrieveAttributeValue();
         var attributeTotal = 0;
         $.each(attributeArray,function() {
             attributeTotal += this;
         });
-        var attributeModifier = (attributeTotal / attributeArray.length) / 2;
-        console.log("the attributeModifier is " + attributeModifier);
-        var correctAnswerThreshold = 25 + attributeModifier;
+        var attributeModifier = Math.floor((attributeTotal / attributeArray.length) / 2);
+        //console.log("the attributeModifier is " + attributeModifier);
+        var correctAnswerThreshold = 40 + attributeModifier;
         var correctAnswerRoll = randomNumberGenerator(100);
-
+        var currentProblemAttributeLength = currentEpisodeType.problemAttribute.length;
         if (correctAnswerThreshold > correctAnswerRoll){
-            ++ shieldAttribute; ++firstMateAttribute;
+            var i = 0;
+            while (i < currentProblemAttributeLength){
+                // manually enter each attribute type
+                if (currentEpisodeType.problemAttribute[i]==="speedAttribute"){speedAttribute = speedAttribute + adjustAttribute(1)}
+                if (currentEpisodeType.problemAttribute[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(1)}
+                if (currentEpisodeType.problemAttribute[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(1)}
+                if (currentEpisodeType.problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(1)}
+                 ++i;
+             }
             var episodeResultPositive = currentEpisodeType.resultPossitive;
             $('#finalResultsDescription').text(episodeResultPositive);
             txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length -1)];
@@ -111,7 +128,15 @@ function handleClick()
             $("#banner").attr( "src", "images/allcrew.jpg" );
 
         } else {
-            --speedAttribute; --firstMateAttribute;
+            var i = 0;
+            while (i < currentProblemAttributeLength){
+                // manually enter each attribute type
+                if (currentEpisodeType.problemAttribute[i]==="speedAttribute"){speedAttribute = speedAttribute + adjustAttribute(-1)}
+                if (currentEpisodeType.problemAttribute[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(-1)}
+                if (currentEpisodeType.problemAttribute[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(-1)}
+                if (currentEpisodeType.problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(-1)}
+                 ++i;
+             }
             var episodeResultNegative = currentEpisodeType.resultNegative;
             $('#finalResultsDescription').text(episodeResultNegative);
             $("#banner").attr( "src", "images/shipexplosion.jpg" );
