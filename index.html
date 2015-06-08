@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Space Voyage</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<!-- <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,600|Source+Code+Pro" rel="stylesheet" /> -->
+		<!--[if lte IE 8]><script src="html5shiv.js" type="text/javascript"></script><![endif]-->
+		<script src="js/episodes.js"></script>
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+		<script src="js/jquery.dropotron.min.js"></script>
+		<script src="js/skel.min.js">
+		{
+			prefix: 'css/style',
+			preloadStyleSheets: true,
+			resetCSS: true,
+			boxModel: 'border',
+			grid: { gutters: 30 },
+			breakpoints: {
+				wide: { range: '1200-', containers: 1140, grid: { gutters: 50 } },
+				narrow: { range: '481-1199', containers: 960 },
+				mobile: { range: '-480', containers: 'fluid', lockViewport: true, grid: { collapse: true } }
+			}
+		}
+		</script>
+		<script>
+			$(function() {
+
+				// Note: make sure you call dropotron on the top level <ul>
+				$('#main-nav > ul').dropotron({
+					offsetY: -10 // Nudge up submenus by 10px to account for padding
+				});
+
+			});
+		</script>
+		<script>
+			// DOM ready
+			$(function() {
+
+			// Create the dropdown base
+			$("<select />").appendTo("nav");
+
+			// Create default option "Go to..."
+			$("<option />", {
+				"selected": "selected",
+				"value"   : "",
+				"text"    : "Menu"
+			}).appendTo("nav select");
+
+			// Populate dropdown with menu items
+			$("nav a").each(function() {
+			var el = $(this);
+			$("<option />", {
+				"value"   : el.attr("href"),
+				"text"    : el.text()
+			}).appendTo("nav select");
+			});
+
+			// To make dropdown actually work
+			// To make more unobtrusive: http://css-tricks.com/4064-unobtrusive-page-changer/
+			$("nav select").change(function() {
+				window.location = $(this).find("option:selected").val();
+			});
+
+			});
+		</script>
+		<script src="js/myscript.js"></script>
+	</head>
+	<body>
+		<div id="header_container">
+		    <div class="container">
+			<!-- Header -->
+				<div id="header" class="row">
+					<div class="4u">
+						<div class="transparent">
+							<h1><a href="index.html">Space<span class="header_colour"> Voyage</span></a></h1>
+							<h3>Choose your own adventure and see if you can get the crew back home to earth</h3>
+					    </div>
+					</div>
+
+					<nav id="main-nav" class="8u">
+						<ul>
+							<li><a href="#">Menu</a>
+									<ul>
+										<li><a href="">Drop Down 1</a></li>
+										<li><a href="#">Drop Down 2</a></li>
+										<li>
+											<a href="#">Drop Down 3</a>
+												<ul>
+													<li><a href="#">Sub Drop Down One</a></li>
+													<li><a href="#">Sub Drop Down Two</a></li>
+													<li><a href="#">Sub Drop Down Three</a></li>
+													<li><a href="#">Sub Drop Down Four</a></li>
+													<li><a href="#">Sub Drop Down Five</a></li>
+												</ul>
+										</li>
+									</ul>
+							</li>
+							<li><a href="contact.php">sample contact</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+        </div>
+
+		<div id="site_content">
+			<div class="container">
+
+				<!-- Features -->
+				<div class="row">
+					<section class="6u">
+
+						<!-- add id ="banner" to div for default sizing -->
+						<div >
+							<a><img id="banner" src="images/allcrew.jpg" alt="Crew image" /></a>
+						</div>
+
+						<h1>Your crew and ship has been displaced to the Gamma quadrant. It is your duty and challenge to get them all home.</h1>
+						<p id="finalResultsDescription">Your crew is far from home, and wondering if they will live to see Earth once more. But you have good health, enough resources, a good ship... and most importantly the courage to attempt the imposible. </p>
+					</section>
+
+					<section class="4u">
+						<div id="sidebar">
+							<section class="12u">
+
+								<h3 id = "episodeTitle">Ready to start?</h3>
+								<h4 id = "episodeDescription">The discription of each episode will be described here.</h4>
+
+								<select id="mySelect" onchange="handleClick()">
+									  <option disabled selected> -- What are your orders capatin? -- </option>
+									  <option  value="1">yes.
+									  <option value="2">maybe.
+									  <option value="3">no... but lets try anyway.
+								</select>
+								 <!-- <p id="proof">this is proving i got the variable set</p> -->
+								 <!--cript> fillSelectOptions()</script>-->
+
+							</section>
+							<section class="12u">
+
+								<h3>Ship</h3>
+								<ul>
+									<li id = "shipSpeedList">Speed</li>
+									<script>$('#shipSpeedList').text("Speed: (" + speedOrigin + ")"); </script>
+									<li id = "shipWeaponList">Weapons</li>
+									<script>$('#shipWeaponList').text("Weapons: (" + weaponOrigin + ")"); </script>
+									<li id = "shipShieldList">Shields</li>
+									<script>$('#shipShieldList').text("Shields: (" + shieldOrigin + ")"); </script>
+									<!-- <li><a href="#">Hull</a></li>
+									<li><a href="#">Sensors</a></li>
+									<li><a href="#">Resources</a></li> -->
+								</ul>
+							</section>
+							<section class="12u">
+								<h3>Crew</h3>
+								<ul>
+									<li><a href="#">Captain</a></li>
+										<ul>
+											<li><a href="#">Leadership</a></li>
+											<li><a href="#">Luck</a></li>
+											<li><a href="#">Willpower</a></li>
+											<li><a href="#">Negotiation</a></li>
+										</ul>
+									<li id = "firstMateList">First Mate</li>
+									<script>$('#firstMateList').text("First Mate: (" + firstMateOrigin + ")"); </script>
+									<li><a href="#">Security Officer</a></li>
+									<li><a href="#">Medical Officer</a></li>
+									<li><a href="#">Chief Engineer</a></li>
+									<li><a href="#">Lieutenant</a></li>
+									<li><a href="#">Ensign</a></li>
+								</ul>
+							</section>
+						</div>
+					</section>
+
+				</div>
+			</div>
+        </div>
+
+			<div class="container">
+			<!-- Footer -->
+				<footer>
+					<p><img src="images/twitter.png" alt="twitter" />&nbsp;<img src="images/facebook.png" alt="facebook" />&nbsp;<img src="images/rss.png" alt="rss" /></p>
+					<p><a href="index.html">Home</a></p>
+					<p style="color:grey">Copyright &copy; CSS3_tuned | <a href="http://skeljs.org/" style="color:grey">skel.js</a> | <a href="http://www.css3templates.co.uk" style="color:grey">design from css3templates.co.uk</a></p>
+
+				</footer>
+			</div>
+
+	</body>
+</html>
