@@ -1,16 +1,18 @@
 //new game objects
-var firstEpisodeState = [777];
+var firstEpisodeState = 777;
+
 var speedOrigin = speedAttribute = 50;
 var weaponOrigin = weaponAttribute = 40;
 var shieldOrigin = shieldAttribute = 30;
 var firstMateOrigin = firstMateAttribute = 60;
+
 var randomObjectLength = randomObjectType.length;
 var txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length -1)];
 var currentEpisodeType =window[txtEpisodeType];
 var currentProblemAttributeArray = [];
-//console.log(currentEpisodeType);
+var distanceHome = 70000;
 
-//console.logs
+//console.logs to make sure the program has booted ok
     console.log( "myscript is connected.");
 
     $(document).ready(console.log("JQuery ready"));
@@ -54,7 +56,7 @@ function fillSelectOptions()
     {
         var i =0;
         var episodeProblemTitle = currentEpisodeType.problemTitle;
-        $('#episodeTitle').text(episodeProblemTitle);
+        $('#episodeTitle').text("Episode " + firstEpisodeState + ": " + episodeProblemTitle);
         var episodeProblemDescription = buildPhrase (currentEpisodeType.problemDescription);
         //console.log("this episode: " + episodeProblemTitle);
         $('#episodeDescription').text(episodeProblemDescription);
@@ -86,19 +88,27 @@ function retrieveAttributeValue()
 
 function adjustAttribute(posOrNeg)
 {
-    adjustAttributeValue = posOrNeg * randomNumberGenerator(100);
+    adjustAttributeValue = posOrNeg * randomNumberGenerator(10);
     return adjustAttributeValue;
+}
+
+function checkAttribute(tempAttributeType){
+    if (tempAttributeType > 100) {tempAttributeType = 100}
+    if (tempAttributeType < 1) {tempAttributeType = 0}
 }
 
 function handleClick()
       {
         $('select').prop('selectedIndex', 0);
 
-        fillSelectOptions();
-        if (firstEpisodeState[0] ==777) {
-            firstEpisodeState = []; return;
-            }
+        if (firstEpisodeState == 777) {
+            firstEpisodeState = 0;
+            fillSelectOptions();
+            return;
+        }
+        ++firstEpisodeState;
 
+        fillSelectOptions();
         var selectValue = document.getElementById("mySelect").value;
 
         var attributeArray = retrieveAttributeValue();
@@ -111,21 +121,37 @@ function handleClick()
         var correctAnswerThreshold = 40 + attributeModifier;
         var correctAnswerRoll = randomNumberGenerator(100);
         var currentProblemAttributeLength = currentEpisodeType.problemAttribute.length;
+
         if (correctAnswerThreshold > correctAnswerRoll){
             var i = 0;
             while (i < currentProblemAttributeLength){
                 // manually enter each attribute type
-                if (currentEpisodeType.problemAttribute[i]==="speedAttribute"){speedAttribute = speedAttribute + adjustAttribute(1)}
-                if (currentEpisodeType.problemAttribute[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(1)}
-                if (currentEpisodeType.problemAttribute[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(1)}
-                if (currentEpisodeType.problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(1)}
+                if (currentEpisodeType.problemAttribute[i]==="speedAttribute"){
+                    speedAttribute = speedAttribute + adjustAttribute(1);
+                    checkAttribute(speedAttribute);
+                }
+                if (currentEpisodeType.problemAttribute[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(1);
+                    checkAttribute(weaponAttribute);
+                }
+                if (currentEpisodeType.problemAttribute[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(1);
+                    checkAttribute(shieldAttribute);
+                }
+                if (currentEpisodeType.problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(1);
+                    checkAttribute(firstMateAttribute);
+                }
+                distanceHome = distanceHome - (speedAttribute * 8);
+                if (distanceHome <1) {
+                    endGame();
+                    return;
+                }
+                $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
                  ++i;
              }
             var episodeResultPositive = currentEpisodeType.resultPossitive;
             $('#finalResultsDescription').text(episodeResultPositive);
             txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length -1)];
             currentEpisodeType =window[txtEpisodeType];
-            $("#banner").attr( "src", "images/allcrew.jpg" );
+            $("#banner").attr( "src", "images/allcrewrollip.jpg" );
 
         } else {
             var i = 0;
@@ -147,3 +173,7 @@ function handleClick()
         $('#shipShieldList').text("Shields: (" +shieldOrigin + ")" + shieldAttribute );
         $('#firstMateList').text("First Mate: (" +firstMateOrigin + ")" + firstMateAttribute );
       }
+
+function endGame () {
+    //dont know yet.
+}
