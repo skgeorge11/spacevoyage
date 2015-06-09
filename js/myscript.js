@@ -36,7 +36,7 @@ function buildPhrase (buildPhraseName){
                 var madLibLength = phrasePieceObject.length -1; // subtract 1 if you are finding the array positions
                 var madLibPlace = randomNumberGenerator(madLibLength);
                 checkPhrasePiece = phrasePieceObject[madLibPlace];
-            }
+                }
             ++y;
         }
         var y = 0;
@@ -88,13 +88,13 @@ function retrieveAttributeValue()
 
 function adjustAttribute(posOrNeg)
 {
-    adjustAttributeValue = posOrNeg * randomNumberGenerator(10);
+    adjustAttributeValue = posOrNeg * randomNumberGenerator(101);
     return adjustAttributeValue;
 }
 
 function checkAttribute(tempAttributeType){
-    if (tempAttributeType > 100) {tempAttributeType = 100}
-    if (tempAttributeType < 1) {tempAttributeType = 0}
+    if (window[tempAttributeType] > 100) {window[tempAttributeType] = 100;}
+    if (window[tempAttributeType] < 1) {window[tempAttributeType] = 0;}
 }
 
 function handleClick()
@@ -128,16 +128,16 @@ function handleClick()
                 // manually enter each attribute type
                 if (currentEpisodeType.problemAttribute[i]==="speedAttribute"){
                     speedAttribute = speedAttribute + adjustAttribute(1);
-                    checkAttribute(speedAttribute);
+                    checkAttribute("speedAttribute");
                 }
                 if (currentEpisodeType.problemAttribute[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(1);
-                    checkAttribute(weaponAttribute);
+                    checkAttribute("weaponAttribute");
                 }
                 if (currentEpisodeType.problemAttribute[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(1);
-                    checkAttribute(shieldAttribute);
+                    checkAttribute("shieldAttribute");
                 }
                 if (currentEpisodeType.problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(1);
-                    checkAttribute(firstMateAttribute);
+                    checkAttribute("firstMateAttribute");
                 }
                 distanceHome = distanceHome - (speedAttribute * 8);
                 if (distanceHome <1) {
@@ -157,10 +157,18 @@ function handleClick()
             var i = 0;
             while (i < currentProblemAttributeLength){
                 // manually enter each attribute type
-                if (currentEpisodeType.problemAttribute[i]==="speedAttribute"){speedAttribute = speedAttribute + adjustAttribute(-1)}
-                if (currentEpisodeType.problemAttribute[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(-1)}
-                if (currentEpisodeType.problemAttribute[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(-1)}
-                if (currentEpisodeType.problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(-1)}
+                if (currentEpisodeType.problemAttribute[i]==="speedAttribute"){speedAttribute = speedAttribute + adjustAttribute(-1);
+                    checkAttribute("speedAttribute");
+                }
+                if (currentEpisodeType.problemAttribute[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(-1);
+                    checkAttribute("weaponAttribute");
+                }
+                if (currentEpisodeType.problemAttribute[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(-1);
+                    checkAttribute("shieldAttribute");
+                }
+                if (currentEpisodeType.problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(-1);
+                    checkAttribute("firstMateAttribute");
+                }
                  ++i;
              }
             var episodeResultNegative = currentEpisodeType.resultNegative;
