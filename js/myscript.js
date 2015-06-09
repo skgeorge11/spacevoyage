@@ -54,12 +54,13 @@ function randomNumberGenerator(maxValue)
 
 function fillSelectOptions()
     {
-        var i =0;
+        $('#banner').attr( "src", "images/"+currentEpisodeType.problemPicture );
         var episodeProblemTitle = currentEpisodeType.problemTitle;
         $('#episodeTitle').text("Episode " + firstEpisodeState + ": " + episodeProblemTitle);
         var episodeProblemDescription = buildPhrase (currentEpisodeType.problemDescription);
         //console.log("this episode: " + episodeProblemTitle);
         $('#episodeDescription').text(episodeProblemDescription);
+        var i =0;
         while (i < 3) {
         //console.log(i);
         var optionText = currentEpisodeType.problemAnswer[i];
@@ -67,7 +68,7 @@ function fillSelectOptions()
         $("#mySelect option:eq(" +i+")").text(optionText);
         }
 
-        console.log( "fillSelectOptions has been run.");
+        //console.log( "fillSelectOptions has been run.");
     }
 
 function retrieveAttributeValue()
@@ -118,7 +119,7 @@ function handleClick()
         });
         var attributeModifier = Math.floor((attributeTotal / attributeArray.length) / 2);
         //console.log("the attributeModifier is " + attributeModifier);
-        var correctAnswerThreshold = 40 + attributeModifier;
+        var correctAnswerThreshold = 30 + attributeModifier;
         var correctAnswerRoll = randomNumberGenerator(100);
         var currentProblemAttributeLength = currentEpisodeType.problemAttribute.length;
 
@@ -151,22 +152,21 @@ function handleClick()
             $('#finalResultsDescription').text(episodeResultPositive);
             txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length -1)];
             currentEpisodeType =window[txtEpisodeType];
-            $("#banner").attr( "src", "images/allcrewrollip.jpg" );
 
         } else {
             var i = 0;
             while (i < currentProblemAttributeLength){
                 // manually enter each attribute type
-                if (currentEpisodeType.problemAttribute[i]==="speedAttribute"){speedAttribute = speedAttribute + adjustAttribute(-1);
+                if (currentEpisodeType.problemNegative[i]==="speedAttribute"){speedAttribute = speedAttribute + adjustAttribute(-1);
                     checkAttribute("speedAttribute");
                 }
-                if (currentEpisodeType.problemAttribute[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(-1);
+                if (currentEpisodeType.problemNegative[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(-1);
                     checkAttribute("weaponAttribute");
                 }
-                if (currentEpisodeType.problemAttribute[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(-1);
+                if (currentEpisodeType.problemNegative[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(-1);
                     checkAttribute("shieldAttribute");
                 }
-                if (currentEpisodeType.problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(-1);
+                if (currentEpisodeType.problemNegative[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(-1);
                     checkAttribute("firstMateAttribute");
                 }
                  ++i;
@@ -176,10 +176,11 @@ function handleClick()
             $("#banner").attr( "src", "images/shipexplosion.jpg" );
         }
         //console.log( "The correct Answer was number " + correctAnswerRoll);
+        $('#shipList').text(shipName);
         $('#shipSpeedList').text("Speed: (" +speedOrigin + ")" + speedAttribute );
         $('#shipWeaponList').text("Weapons: (" +weaponOrigin + ")" + weaponAttribute );
         $('#shipShieldList').text("Shields: (" +shieldOrigin + ")" + shieldAttribute );
-        $('#firstMateList').text("First Mate: (" +firstMateOrigin + ")" + firstMateAttribute );
+        $('#firstMateList').text("First Mate " +firstMateName + ": (" +firstMateOrigin + ")" + firstMateAttribute );
       }
 
 function endGame () {
