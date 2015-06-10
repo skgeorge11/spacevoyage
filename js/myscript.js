@@ -7,7 +7,7 @@ var shieldOrigin = shieldAttribute = 30;
 var firstMateOrigin = firstMateAttribute = 60;
 
 var randomObjectLength = randomObjectType.length;
-var txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length -1)];
+var txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length)];
 var currentEpisodeType = window[txtEpisodeType]; //console.log (txtEpisodeType +currentEpisodeType);
 var episodeTypeState = "plotTwistOne";
 var currentProblemAttributeArray = [];
@@ -153,17 +153,17 @@ function handleClick()
                 if (currentEpisodeType[episodeTypeState].problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(1);
                     checkAttribute("firstMateAttribute");
                 }
-                distanceHome = distanceHome - (speedAttribute * 8);
+                ++i;
+             }
+             distanceHome = distanceHome - (speedAttribute * 8);
                 if (distanceHome <1) {
                     endGame();
                     return;
                 }
-                $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
-                 ++i;
-             }
+            $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
             var episodeResultPositive = currentEpisodeType[episodeTypeState].resultPossitive;
             $('#finalResultsDescription').text(episodeResultPositive);
-            txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length -1)];
+            txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length)];
             currentEpisodeType =window[txtEpisodeType];
 
         } else {
