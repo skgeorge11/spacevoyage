@@ -8,7 +8,8 @@ var firstMateOrigin = firstMateAttribute = 60;
 
 var randomObjectLength = randomObjectType.length;
 var txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length -1)];
-var currentEpisodeType =window[txtEpisodeType];
+var currentEpisodeType = window[txtEpisodeType]; //console.log (txtEpisodeType +currentEpisodeType);
+var episodeTypeState = "plotTwistOne";
 var currentProblemAttributeArray = [];
 var distanceHome = 70000;
 
@@ -18,6 +19,17 @@ var distanceHome = 70000;
     $(document).ready(console.log("JQuery ready"));
 
 //functions
+
+// function findObjectLength(){
+//     var count = 0;
+//     var i;
+//     console.log ("function value " +txtEpisodeType +currentEpisodeType);
+//     for (i in currentEpisodeType) {
+//         if (currentEpisodeType[episodeTypeState].hasOwnProperty(i)) {
+//         count++;
+//         }
+//     }
+// }
 
 function buildPhrase (buildPhraseName){
     var i = 0;
@@ -54,16 +66,17 @@ function randomNumberGenerator(maxValue)
 
 function fillSelectOptions()
     {
-        $('#banner').attr( "src", "images/"+currentEpisodeType.problemPicture );
+        //console.log (txtEpisodeType + episodeTypeState);
+        $('#banner').attr( "src", "images/"+ currentEpisodeType[episodeTypeState].problemPicture );
         var episodeProblemTitle = currentEpisodeType.problemTitle;
         $('#episodeTitle').text("Episode " + firstEpisodeState + ": " + episodeProblemTitle);
-        var episodeProblemDescription = buildPhrase (currentEpisodeType.problemDescription);
+        var episodeProblemDescription = buildPhrase (currentEpisodeType[episodeTypeState].problemDescription);
         //console.log("this episode: " + episodeProblemTitle);
         $('#episodeDescription').text(episodeProblemDescription);
         var i =0;
         while (i < 3) {
         //console.log(i);
-        var optionText = currentEpisodeType.problemAnswer[i];
+        var optionText = currentEpisodeType[episodeTypeState].problemAnswer[i];
         i++;
         $("#mySelect option:eq(" +i+")").text(optionText);
         }
@@ -74,15 +87,15 @@ function fillSelectOptions()
 function retrieveAttributeValue()
     {
         currentProblemAttributeArray = [];
-        var currentProblemAttributeLength = currentEpisodeType.problemAttribute.length;
+        var currentProblemAttributeLength = currentEpisodeType[episodeTypeState].problemAttribute.length;
         var i =0;
         while (i < currentProblemAttributeLength){
-            var tempAttribute = window[currentEpisodeType.problemAttribute[i]];
+            var tempAttribute = window[currentEpisodeType[episodeTypeState].problemAttribute[i]];
             currentProblemAttributeArray.push (tempAttribute);
             ++i;
         }
         // console.log (currentProblemAttributeArray);
-        // console.log (currentEpisodeType.problemAttribute);
+        // console.log (currentEpisodeType[episodeTypeState].problemAttribute);
         return currentProblemAttributeArray;
 
     }
@@ -121,23 +134,23 @@ function handleClick()
         //console.log("the attributeModifier is " + attributeModifier);
         var correctAnswerThreshold = 30 + attributeModifier;
         var correctAnswerRoll = randomNumberGenerator(100);
-        var currentProblemAttributeLength = currentEpisodeType.problemAttribute.length;
+        var currentProblemAttributeLength = currentEpisodeType[episodeTypeState].problemAttribute.length;
 
         if (correctAnswerThreshold > correctAnswerRoll){
             var i = 0;
             while (i < currentProblemAttributeLength){
                 // manually enter each attribute type
-                if (currentEpisodeType.problemAttribute[i]==="speedAttribute"){
+                if (currentEpisodeType[episodeTypeState].problemAttribute[i]==="speedAttribute"){
                     speedAttribute = speedAttribute + adjustAttribute(1);
                     checkAttribute("speedAttribute");
                 }
-                if (currentEpisodeType.problemAttribute[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(1);
+                if (currentEpisodeType[episodeTypeState].problemAttribute[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(1);
                     checkAttribute("weaponAttribute");
                 }
-                if (currentEpisodeType.problemAttribute[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(1);
+                if (currentEpisodeType[episodeTypeState].problemAttribute[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(1);
                     checkAttribute("shieldAttribute");
                 }
-                if (currentEpisodeType.problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(1);
+                if (currentEpisodeType[episodeTypeState].problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(1);
                     checkAttribute("firstMateAttribute");
                 }
                 distanceHome = distanceHome - (speedAttribute * 8);
@@ -148,7 +161,7 @@ function handleClick()
                 $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
                  ++i;
              }
-            var episodeResultPositive = currentEpisodeType.resultPossitive;
+            var episodeResultPositive = currentEpisodeType[episodeTypeState].resultPossitive;
             $('#finalResultsDescription').text(episodeResultPositive);
             txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length -1)];
             currentEpisodeType =window[txtEpisodeType];
@@ -157,21 +170,21 @@ function handleClick()
             var i = 0;
             while (i < currentProblemAttributeLength){
                 // manually enter each attribute type
-                if (currentEpisodeType.problemNegative[i]==="speedAttribute"){speedAttribute = speedAttribute + adjustAttribute(-1);
+                if (currentEpisodeType[episodeTypeState].problemNegative[i]==="speedAttribute"){speedAttribute = speedAttribute + adjustAttribute(-1);
                     checkAttribute("speedAttribute");
                 }
-                if (currentEpisodeType.problemNegative[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(-1);
+                if (currentEpisodeType[episodeTypeState].problemNegative[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(-1);
                     checkAttribute("weaponAttribute");
                 }
-                if (currentEpisodeType.problemNegative[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(-1);
+                if (currentEpisodeType[episodeTypeState].problemNegative[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(-1);
                     checkAttribute("shieldAttribute");
                 }
-                if (currentEpisodeType.problemNegative[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(-1);
+                if (currentEpisodeType[episodeTypeState].problemNegative[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(-1);
                     checkAttribute("firstMateAttribute");
                 }
                  ++i;
              }
-            var episodeResultNegative = currentEpisodeType.resultNegative;
+            var episodeResultNegative = currentEpisodeType[episodeTypeState].resultNegative;
             $('#finalResultsDescription').text(episodeResultNegative);
             $("#banner").attr( "src", "images/shipexplosion.jpg" );
         }
