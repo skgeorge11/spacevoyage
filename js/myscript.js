@@ -21,6 +21,13 @@ var distanceHome = 70000;
 
     $(document).ready(console.log("JQuery ready"));
 
+if(typeof(Storage) !== "undefined") {
+    // Code for localStorage/sessionStorage.
+    console.log ("Yes!  Web Storage support..");
+} else {
+    console.log ("Sorry! No Web Storage support..");
+}
+
 //functions
 
 // function findObjectLength(){
@@ -33,6 +40,17 @@ var distanceHome = 70000;
 //         }
 //     }
 // }
+function loadLocal () {
+    speedOrigin = localStorage.speedOrigin;
+    speedAttribute = localStorage.speedAttribute;
+    console.log("session Storage speed: " + speedAttribute);
+}
+
+function saveLocal () {
+    localStorage.speedOrigin = speedOrigin;
+    localStorage.speedAttribute = speedAttribute;
+    console.log("local Storage speed " + localStorage.speedAttribute);
+}
 
 function buildPhrase (buildPhraseName){
     var i = 0;
@@ -207,11 +225,11 @@ function handleClick()
         $.each(attributeArray,function() {
             attributeTotal += this;
         });
-        var attributeModifier = Math.floor((attributeTotal / attributeArray.length) / 2);
+        var attributeModifier = Math.floor((attributeTotal / attributeArray.length) / 3);
         //console.log("the attributeModifier is " + attributeModifier);
-        var correctAnswerThreshold = 35 + attributeModifier;
+        var correctAnswerThreshold = 40 + attributeModifier;
         //console.log ("the threshold is "+ correctAnswerThreshold);
-        var correctAnswerRoll = randomNumberGenerator(1000);
+        var correctAnswerRoll = randomNumberGenerator(100);
 
         var currentProblemAttributeLength = currentEpisodeType[episodeTypeState].problemAttribute.length;
 

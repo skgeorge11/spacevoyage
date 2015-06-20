@@ -96,7 +96,8 @@
 										</li>
 									</ul>
 							</li>
-							<li><a href="contact.php">sample contact</a></li>
+							<li><a href="javascript:void(0);" onclick="saveLocal();return false">Save</a></li>
+							<li><a href="javascript:void(0);" onclick="loadLocal();return false">Load</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -111,7 +112,7 @@
 					<section class="6u">
 
 						<!-- add id ="banner" to div for default sizing -->
-						<div >
+						<div id ="customBanner">
 							<a><img id="banner" src="images/allcrewcartoon.jpg" alt="Crew image" /></a>
 						</div>
 
@@ -156,7 +157,8 @@
 							<section class="12u">
 								<h3>Crew</h3>
 								<ul>
-									<li><a href="#">Captain</a></li>
+									<li><a href="#">Captain: </a></li>
+									<!-- <input type="text" name="username"></li> -->
 										<ul>
 											<li><a href="#">Leadership</a></li>
 											<li><a href="#">Luck</a></li>

@@ -1,4 +1,4 @@
-var episodeType = ["resourceType"]; //add ,"combatType", "medicalType" , "scienceType"
+var episodeType = ["resourceType" ,"combatType", "medicalType" , "scienceType"]; //add
 
 var resourceType = {problemTitle:["Space Resources"],
     originPlot:{problemPicture: "alientrader.jpg", problemAttribute: [10,"resourceAttribute" , "firstMateAttribute"] , immediateAttribute: [0] ,problemDescription: ["randomName", " is an alien " , "randomJob" , " from the " , "randomRace" , " race.  He offers your crew the coordinates of a rare " , "randomItem", " which could greatly improve your ships warp speed.  However, he says he is only willing to negotiate with " , "firstMateName" , ". As captain your concerned about the risk to your crew."], resultPossitive:"You have the crystal!", resultNegative:["plotTwistOne", "plotTwistTwo", "plotTwistOne", "failure"], problemAnswer:[["number 1", "captainName"], "choose this one","","",""]},
