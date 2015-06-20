@@ -128,9 +128,11 @@
 
 								<select id="mySelect" onchange="handleClick()">
 									  <option disabled selected> -- What are your orders capatin? -- </option>
-									  <option  value="1">yes.
-									  <option value="2">maybe.
-									  <option value="3">no... but lets try anyway.
+									  <option  value="1">yes.</option>
+									  <option value="2">no... but lets try anyway.</option>
+									  <option value="3"></option>
+									  <option  value="4"></option>
+									  <option  value="5"></option>
 								</select>
 								 <!-- <p id="proof">this is proving i got the variable set</p> -->
 								 <!--<script> fillSelectOptions()</script>-->
@@ -146,9 +148,9 @@
 									<script>$('#shipWeaponList').text("Weapons: (" + weaponOrigin + ")"); </script>
 									<li id = "shipShieldList">Shields</li>
 									<script>$('#shipShieldList').text("Shields: (" + shieldOrigin + ")"); </script>
-									<!-- <li><a href="#">Hull</a></li>
-									<li><a href="#">Sensors</a></li>
-									<li><a href="#">Resources</a></li> -->
+									<li id = "shipResourceList">Resources</li>
+									<script>$('#shipResourceList').text("Resources: (" + resourceOrigin + ")"); </script>
+
 								</ul>
 							</section>
 							<section class="12u">
