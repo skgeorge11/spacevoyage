@@ -92,7 +92,7 @@ function retrieveAttributeValue()
     {
         currentProblemAttributeArray = [];
         var currentProblemAttributeLength = currentEpisodeType[episodeTypeState].problemAttribute.length;
-        var i =0;
+        var i =1;
         while (i < currentProblemAttributeLength){
             var tempAttribute = window[currentEpisodeType[episodeTypeState].problemAttribute[i]];
             currentProblemAttributeArray.push (tempAttribute);
@@ -104,9 +104,9 @@ function retrieveAttributeValue()
 
     }
 
-function adjustAttribute(posOrNeg)
+function adjustAttribute(maxChange)
 {
-    var adjustAttributeValue = posOrNeg * randomNumberGenerator(10);
+    var adjustAttributeValue = (randomNumberGenerator(maxChange))+ maxChange ;
     return adjustAttributeValue;
 }
 
@@ -118,7 +118,9 @@ function checkAttribute(tempAttributeType){
 function changeAttribute(negOrPos)
 {
     var currentProblemAttributeLength = currentEpisodeType[episodeTypeState].problemAttribute.length;
-    var i = 0;
+    changeModifier = (currentEpisodeType[episodeTypeState].problemAttribute[0])* negOrPos;
+    //console.log("change modifier is "+changeModifier);
+    var i = 1;
             while (i < currentProblemAttributeLength){
                 // manually enter each attribute type
                 if (currentEpisodeType[episodeTypeState].problemAttribute[i]==="speedAttribute"){
@@ -137,9 +139,6 @@ function changeAttribute(negOrPos)
                 }
                 if (currentEpisodeType[episodeTypeState].problemAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(changeModifier);
                     checkAttribute("firstMateAttribute");
-                }else{
-                    changeModifier = (currentEpisodeType[episodeTypeState].problemAttribute[i])* negOrPos;
-                    console.log(changeModifier);
                 }
                 ++i;
              }
@@ -147,7 +146,9 @@ function changeAttribute(negOrPos)
 
 function immediateChange(){
         var currentProblemAttributeLength = currentEpisodeType[episodeTypeState].immediateAttribute.length;
-        var i = 0;
+        changeModifier = currentEpisodeType[episodeTypeState].immediateAttribute[0];
+        //console.log(changeModifier);
+        var i = 1;
             while (i < currentProblemAttributeLength){
                 // manually enter each attribute type
                 if (currentEpisodeType[episodeTypeState].immediateAttribute[i]==="speedAttribute"){
@@ -166,9 +167,6 @@ function immediateChange(){
                 }
                 if (currentEpisodeType[episodeTypeState].immediateAttribute[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + changeModifier;
                     checkAttribute("firstMateAttribute");
-                }else{
-                    changeModifier = currentEpisodeType[episodeTypeState].immediateAttribute[i];
-                    console.log(changeModifier);
                 }
                 ++i;
              }
@@ -212,7 +210,8 @@ function handleClick()
         var attributeModifier = Math.floor((attributeTotal / attributeArray.length) / 2);
         //console.log("the attributeModifier is " + attributeModifier);
         var correctAnswerThreshold = 35 + attributeModifier;
-        var correctAnswerRoll = randomNumberGenerator(100);
+        //console.log ("the threshold is "+ correctAnswerThreshold);
+        var correctAnswerRoll = randomNumberGenerator(1000);
 
         var currentProblemAttributeLength = currentEpisodeType[episodeTypeState].problemAttribute.length;
 
