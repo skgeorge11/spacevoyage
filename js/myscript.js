@@ -112,11 +112,16 @@ function buildPhrase (buildPhraseName){
             //console.log (totalObjectType[y]);
             if (checkPhrasePiece === totalObjectType[y]){
                 var phrasePieceObject = window[checkPhrasePiece];
-                //console.log (phrasePieceObject[2]);
-                var madLibLength = phrasePieceObject.length -1; // subtract 1 if you are finding the array positions
-                var madLibPlace = randomNumberGenerator(madLibLength);
-                checkPhrasePiece = phrasePieceObject[madLibPlace];
+                if (typeof phrasePieceObject == "object"){
+                    //console.log("piece is an array");
+                    var madLibLength = phrasePieceObject.length -1; // subtract 1 if you are finding the array positions
+                    var madLibPlace = randomNumberGenerator(madLibLength);
+                    checkPhrasePiece = phrasePieceObject[madLibPlace];
+                } else{
+                    checkPhrasePiece = phrasePieceObject;
+                    //console.log("its a string");
                 }
+            }
             ++y;
         }
         var y = 0;
@@ -144,7 +149,7 @@ function fillSelectOptions()
         //console.log(y);
         while (i < y) {
             //console.log(i);
-            var optionText = currentEpisodeType[episodeTypeState].problemAnswer[i];
+            var optionText = buildPhrase(currentEpisodeType[episodeTypeState].problemAnswer[i]);
             i++;
             $("#mySelect option:eq(" +i+")").text(optionText);
             }
@@ -289,7 +294,9 @@ function handleClick()
         resourceAttribute-=3;
 
         var resultNegativeCheck  = currentEpisodeType[episodeTypeState].resultNegative[selectValue];
+
         if (resultNegativeCheck === "nextEpisode"){
+            $('#finalResultsDescription').text(currentEpisodeType[episodeTypeState].resultPass);
             changeAttribute(-1, "immediateAttribute");
             updateStats();
             ++firstEpisodeState;
@@ -327,7 +334,7 @@ function handleClick()
         var currentProblemAttributeLength = currentEpisodeType[episodeTypeState].problemAttribute.length;
 
         if (correctAnswerThreshold > correctAnswerRoll){
-            allHealth(medicalAttribute);
+            allHealth(medicalAttribute/2);
             if (firstEpisodeState > 172){endGame(); return;}
 
             changeAttribute(1, "problemAttribute");
@@ -340,23 +347,22 @@ function handleClick()
 
             $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
 
-            episodeTypeState = "winner";
             var episodeResultPositive = currentEpisodeType[episodeTypeState].resultPossitive;
             $('#finalResultsDescription').text(episodeResultPositive);
+            episodeTypeState = "winner";
 
         } else {
 
-            episodeTypeState = currentEpisodeType[episodeTypeState].resultNegative[selectValue];
-
-            if (episodeTypeState === "failure")
+            if (resultNegativeCheck === "failure")
             {
                 allHealth(medicalAttribute/4);
                 changeAttribute(-1, "problemAttribute");
                 endGame();
             }
 
-            changeAttribute(-1, "immediateAttribute");
             $('#finalResultsDescription').text(currentEpisodeType[episodeTypeState].failureText);
+            episodeTypeState = currentEpisodeType[episodeTypeState].resultNegative[selectValue];
+            changeAttribute(-1, "immediateAttribute");
             //console.log (episodeTypeState);
         }
         //console.log( "The correct Answer was number " + correctAnswerRoll);

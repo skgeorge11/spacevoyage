@@ -1,7 +1,7 @@
 var episodeType = ["resourceType"]; //add  ,"combatType", "medicalType" , "scienceType", "respiteType"
 
 var resourceType = {problemTitle:["Space Resources"],
-    originPlot:{problemPicture: "alientrader.jpg", problemAttribute: [10,"captainAttribute" , "firstMateAttribute", "securityAttribute", "medicalAttribute","chiefAttribute"] , immediateAttribute: [50,"allShipAttribute"] ,problemDescription: ["randomName", " is an alien " , "randomJob" , " from the " , "randomRace" , " race.  He offers your crew the coordinates of a rare " , "randomItem", " which could greatly improve your ships warp speed.  However, he says he is only willing to negotiate with " , "firstMateName" , ". As captain your concerned about the risk to your crew."], resultPossitive:"You have the crystal!", resultNegative:["plotTwistOne", "plotTwistTwo", "plotTwistOne", "failure","nextEpisode"], problemAnswer:[["number 1", "captainName"], "choose this one","","","pass"]},
+    originPlot:{problemPicture: "alientrader.jpg", problemAttribute: [5, "firstMateAttribute", "securityAttribute", "medicalAttribute","chiefAttribute"] , immediateAttribute: [20,"allShipAttribute"] ,problemDescription: ["randomName", " is an alien " , "randomJob" , " from the " , "randomRace" , " race.  He offers your crew the coordinates of a rare " , "randomItem", " which could greatly improve your ships warp speed.  However, he says he is only willing to negotiate with " , "firstMateName" , ". As captain your concerned about this alien's motivations and the considerable risk to your First-mate."], resultPass:"Your ship began to jump into warp just as the 'Trader' opened fire. Your shields took most of the brunt, but your got away with only minor additional damage.", resultPossitive:"You have the crystal!", resultNegative:["plotTwistOne", "plotTwistTwo", "failure","nextEpisode", "nextEpisode"], problemAnswer:[["My name IS !!!...", "captainName",".... -with a wry smile-"], "choose this one",["securityName",", arm the photons. This may be a gamble, but im guessing we can take that information by force!"],"Quick! Ensign lay in any heading and engage to warp 6. This 'Trader' is lying. He is looking to take our vessel by force!",""]},
     plotTwistOne:{problemPicture: "sickbayone.jpg", problemAttribute: [10,"captainAttribute" , "firstMateAttribute", "securityAttribute", "medicalAttribute","chiefAttribute"] , immediateAttribute: [15,"speedAttribute"] ,problemDescription: ["randomItem", "s.... 'we need em!"], resultPossitive:"You have the space dust!", resultNegative:["plotTwistOne", "plotTwistTwo", "plotTwistOne", "failure" ,"winner"], failureText:"bummer", problemAnswer:[["passivo: 'who cares!' blurts out captain ", "captainName"], "neutralo","aggressivo", "choose this one",""]},
     plotTwistTwo:{problemPicture: "allcrew.jpg", problemAttribute: [10,"captainAttribute" , "firstMateAttribute", "securityAttribute", "medicalAttribute","chiefAttribute"] , immediateAttribute: [15,"allShipAttribute"] ,problemDescription: ["The " ,"randomItem","! I must have it."], resultPossitive:"You have the crystal!", resultNegative:["plotTwistOne", "plotTwistTwo", "plotTwistOne", "failure","winner"], failureText:"bummer", problemAnswer:["choose this one", "neutralo","aggressivo","",""]},
     failure:{problemPicture: "shipexplosion.jpg", problemAttribute: [10,"captainAttribute" , "firstMateAttribute", "securityAttribute", "medicalAttribute","chiefAttribute"] , immediateAttribute: [15,"weaponAttribute"] ,problemDescription: ["Your ship has blown up."], resultPossitive:"You have the crystal!", resultNegative:["plotTwistOne", "plotTwistTwo", "plotTwistOne", "failure","winner"], failureText:"bummer", problemAnswer:["End game.","","","",""]},
@@ -41,7 +41,7 @@ var respiteType = {problemTitle:["Repairs"],
     winner:{problemPicture: "earth.jpg", problemAttribute: [14,"resourceAttribute" , "firstMateAttribute"] , immediateAttribute: [15,"firstMateAttribute"] ,problemDescription: ["Awesome!"], resultPossitive:"winner!", resultNegative:["originPlot", "plotTwistTwo", "plotTwistOne", "failure","winner"], problemAnswer:["Continue","","","",""]}
 };
 
-var totalObjectType = ["randomName" , "randomMadeObject" , "randomItem","shipName","captainName","firstMateName" , "randomJob","randomRace"]; //this has to be manually set to reflect all the var objects below it.
+var totalObjectType = ["randomName" , "randomMadeObject" , "randomItem" , "randomJob","randomRace","shipName","captainName","firstMateName", "securityName","medicalName","chiefName"]; //this has to be manually set to reflect all the var objects below it.
 var randomName =["Ardwin", "Batok", "Catarin" , "Dour-gin"];
 var randomMadeObject =["spaceship", "spacestation" , "colony"];
 var randomItem = ["crystal" ,"warp conduit"];
@@ -51,9 +51,9 @@ var randomRace = ["Panuk", "Hilaari", "Upchu"];
 var shipName = "USS Treker";
 var captainName = "Juneway";
 var firstMateName = "Albert";
-var securityName ="";
-var medicalName ="";
-var chiefName ="";
+var securityName ="Tuvac";
+var medicalName ="The Doctor";
+var chiefName ="Be'Lana";
 
 function setUserChoice(){
     shipName = document.getElementById("shipChoice").value;
