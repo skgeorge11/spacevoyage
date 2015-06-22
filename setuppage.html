@@ -74,11 +74,11 @@
 					<div class="4u">
 						<div class="transparent">
 							<h1><a href="index.html">Space<span class="header_colour"> Voyage</span></a></h1>
-							<h3>Choose your own adventure and see if you can get the crew back home to earth</h3>
+							<h3>Customize your crew and ship below. Then press the start button.</h3>
 					    </div>
 					</div>
 
-					<nav id="main-nav" class="8u">
+					<!-- <nav id="main-nav" class="8u">
 						<ul>
 							<li><a href="setuppage.html">Setup</a>
 									<ul>
@@ -100,7 +100,7 @@
 							<li><a href="javascript:void(0);" onclick="saveLocal();return false">Save</a></li>
 							<li><a href="javascript:void(0);" onclick="loadLocal();return false">Load</a></li>
 						</ul>
-					</nav>
+					</nav> -->
 				</div>
 			</div>
         </div>
@@ -113,15 +113,24 @@
 					<section class="6u">
 
 						<!-- add id ="banner" to div for default sizing -->
-						<div id ="customBanner">
+						<!-- <div id ="customBanner">
 							<a><img id="banner" src="images/allcrewcartoon.jpg" alt="Crew image" /></a>
-						</div>
+						       </div>
 
 						<h1>Your crew and ship has been displaced to the Gamma quadrant. It is your duty and challenge to get them all home.</h1>
-						<p id="finalResultsDescription">Your crew is far from home, and wondering if they will live to see Earth once more. But you have good health, enough resources, a good ship... and most importantly the courage to attempt the imposible. </p>
-					</section>
+						<p id="finalResultsDescription">Your crew is far from home, and wondering if they will live to see Earth once more. But you have good health, enough resources, a good ship... and most importantly the courage to attempt the imposible. </p> -->
 
-					<section class="4u">
+
+  							Ship: <input id="shipChoice" type="text"><br>
+  							Captain: <input type="text" id="captainChoice"><br>
+  							Speed: <input type="text" id="speedChoice"><br>
+
+						<a href="index.html" onclick="setUserChoice();"><img src="images/starticon.png" alt="Start Button" /></a>
+
+
+					</section>
+				</div>
+					<!--<section class="4u">
 						<div id="sidebar">
 							<section class="12u">
 								<h4 id = "distanceHomeMeter">Your ship is 70,000 light years from home.</h4>
@@ -136,8 +145,8 @@
 									  <option  value="4"></option>
 									  <option  value="5"></option>
 								</select>
-								 <!-- <p id="proof">this is proving i got the variable set</p> -->
-								 <!--<script> fillSelectOptions()</script>-->
+								 <p id="proof">this is proving i got the variable set</p>
+								 <script> fillSelectOptions()</script>
 
 							</section>
 							<section class="12u">
@@ -145,52 +154,38 @@
 								<h3 id ="shipList">Ship</h3>
 								<ul>
 									<li id = "shipSpeedList" title="This is how many light years your ship travels at warp 1. Luckily you will travel at warp 8 between episodes.">Speed</li>
-
-									<li id = "shipWeaponList" title="">Weapons</li>
-
-									<li id = "shipShieldList" title="">Shields</li>
-
-									<li id = "shipResourceList" title="Resources represents life support and food. If resources reaches 0 the crew will perish.">Resources</li>
+									<script>$('#shipSpeedList').text("Speed: (" + speedOrigin + ")"); </script>
+									<li id = "shipWeaponList">Weapons</li>
+									<script>$('#shipWeaponList').text("Weapons: (" + weaponOrigin + ")"); </script>
+									<li id = "shipShieldList">Shields</li>
+									<script>$('#shipShieldList').text("Shields: (" + shieldOrigin + ")"); </script>
+									<li id = "shipResourceList">Resources</li>
+									<script>$('#shipResourceList').text("Resources: (" + resourceOrigin + ")"); </script>
 
 								</ul>
 							</section>
 							<section class="12u">
 								<h3>Crew</h3>
 								<ul>
-									<li><a id="captainList" style="color:52b4ff">Captain: </a></li>
+									<li><a href="#">Captain: </a></li>
+									<input type="text" name="username"></li>
 										<ul>
-											<li><a id="captainAttributeList" title="leadership score affects episodes that require the captain">Leadership</a></li>
-											<li><a id="captainHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
+											<li><a href="#">Leadership</a></li>
+											<li><a href="#">Luck</a></li>
+											<li><a href="#">Willpower</a></li>
+											<li><a href="#">Negotiation</a></li>
 										</ul>
-									<li><a id="firstMateList">First-mate: </a></li>
-
-										<ul>
-											<li><a id="firstAttributeList">Negotiation</a></li>
-											<li><a id="firstHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
-										</ul>
-									<li><a id="securityList">Security Officer: </a></li>
-
-										<ul>
-											<li><a id="securityAttributeList">Tatics</a></li>
-											<li><a id="securityHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
-										</ul>
-									<li><a id="medicalList">Medical Officer: </a></li>
-
-										<ul>
-											<li><a id="medicalAttributeList">Medicine</a></li>
-											<li><a id="medicalHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
-										</ul>
-									<li><a id="chiefList">Chief Engineer: </a></li>
-
-										<ul>
-											<li><a id="chiefAttributeList">Engineering</a></li>
-											<li><a id="chiefHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
-										</ul>
+									<li id = "firstMateList">First Mate</li>
+									<script>$('#firstMateList').text("First Mate: (" + firstMateOrigin + ")"); </script>
+									<li><a href="#">Security Officer</a></li>
+									<li><a href="#">Medical Officer</a></li>
+									<li><a href="#">Chief Engineer</a></li>
+									<li><a href="#">Lieutenant</a></li>
+									<li><a href="#">Ensign</a></li>
 								</ul>
-								<script>updateStats();</script>
 							</section>
 						</div>
-					</section>
+					</section> -->
 
 				</div>
 			</div>
