@@ -53,26 +53,30 @@ if(typeof(Storage) !== "undefined") {
 // }
 
 function loadLocal () {
-    // var loadArray =["speedOrigin", "captainName"];
-    // var i =0;
-    // while (i < loadArray.length){
-    //     var loadArrayPoint = window[loadArray[i]];
-    //     if (loadArrayPoint in localStorage)
-    //         {loadArray[i] = localStorage.loadArray[i];
-    //         console.log("load Array changed"+ loadArray[i]);
-    //     }
-    //     ++i;
-    // }
-    if ('captainName' in localStorage) {captainName = localStorage.captainName;
-        console.log("captainName changed");}
-    if ('speedAttribute' in localStorage) {speedAttribute = Number(localStorage.speedAttribute);
-        console.log("speedAtt changed");}
-        if ('weaponAttribute' in localStorage) {weaponAttribute = Number(localStorage.weaponAttribute);
-        console.log("weaponAtt changed");}
-
+    var stringArray =["shipName","captainName","firstMateName","securityName","medicalName","chiefName"];
+    // add ,"episodeTypeState","currentEpisodeType"
+    var numberArray =["speedOrigin" , "speedAttribute","weaponOrigin","weaponAttribute", "shieldOrigin","shieldAttribute","resourceOrigin","resourceAttribute","firstEpisodeState","captainOrigin","captainAttribute","captainHealthOrigin","captainHealthAttribute","firstMateOrigin","firstMateAttribute","firstHealthOrigin","firstHealthAttribute","securityOrigin","securityAttribute","securityHealthOrigin","securityHealthAttribute","medicalOrigin","medicalAttribute","medicalHealthOrigin","medicalHealthAttribute","chiefOrigin","chiefAttribute","chiefHealthOrigin","chiefHealthAttribute"];
+    var i = 0;
+    var y = 0;
+    while (i < stringArray.length){
+        var stringValue = stringArray[i];
+        if (stringValue in localStorage) {
+            var stringPoint = window[stringArray[i]];
+            window[stringArray[i]] = localStorage[stringValue];
+        }
+        ++i
+    }
+    while (y < numberArray.length){
+        var numberValue = numberArray[y];
+        if (numberValue in localStorage) {
+            var numberPoint = window[numberValue];
+            window[numberArray[y]]= Number(localStorage[numberValue]);
+        }
+        ++y
+    }
     updateStats();
     fillSelectOptions();
-    console.log("load run");
+    console.log(currentEpisodeType + " : " + episodeTypeState);
 }
 
 function updateStats(){
@@ -109,12 +113,13 @@ function saveLocal () {
         return;
     }
     window.localStorage.clear();
-    localStorage.speedOrigin = speedOrigin;
-    localStorage.speedAttribute = speedAttribute;
-    localStorage.weaponOrigin = weaponOrigin;
-    localStorage.weaponAttribute = weaponAttribute;
-    localStorage.captainName = captainName;
-    console.log("local Storage saved, new speed is " + localStorage.speedAttribute);
+    var localArray = ["shipName","captainName","firstMateName","securityName","medicalName","chiefName","episodeTypeState","currentEpisodeType","speedOrigin" , "speedAttribute","weaponOrigin","weaponAttribute", "shieldOrigin","shieldAttribute","resourceOrigin","resourceAttribute","firstEpisodeState","captainOrigin","captainAttribute","captainHealthOrigin","captainHealthAttribute","firstMateOrigin","firstMateAttribute","firstHealthOrigin","firstHealthAttribute","securityOrigin","securityAttribute","securityHealthOrigin","securityHealthAttribute","medicalOrigin","medicalAttribute","medicalHealthOrigin","medicalHealthAttribute","chiefOrigin","chiefAttribute","chiefHealthOrigin","chiefHealthAttribute"];
+    var i = 0;
+    while (i < localArray.length){
+        localStorage[localArray[i]] = window[localArray[i]];
+        ++i
+    }
+    console.log("saved");
 }
 
 function newGame (){

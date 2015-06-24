@@ -71,11 +71,11 @@ var randomJob = ["trader" , "janitor" ,"ambasidor"];
 var randomRace = ["Panuk", "Hilaari", "Upchu"];
 
 var shipName = "USS Treker";
-var captainName = "Juneway";
-var firstMateName = "Albert";
-var securityName ="Tuvac";
+var captainName = "Juneway"; console.log(captainName);
+var firstMateName = "Cha'Te";
+var securityName ="Tabuk";
 var medicalName ="The Doctor";
-var chiefName ="Be'Lana";
+var chiefName ="Be'Tor";
 
 function setUserChoice(){
     shipName = document.getElementById("shipChoice").value;
