@@ -39,19 +39,6 @@ if(typeof(Storage) !== "undefined") {
     console.log ("Sorry! No Web Storage support..");
 }
 
-//functions
-
-// function findObjectLength(){
-//     var count = 0;
-//     var i;
-//     console.log ("function value " +txtEpisodeType +currentEpisodeType);
-//     for (i in currentEpisodeType) {
-//         if (currentEpisodeType[episodeTypeState].hasOwnProperty(i)) {
-//         count++;
-//         }
-//     }
-// }
-
 function loadLocal () {
     var stringArray =["shipName","captainName","firstMateName","securityName","medicalName","chiefName"];
     // add ,"episodeTypeState","currentEpisodeType"
@@ -389,7 +376,7 @@ function handleClick()
 
             if (resultNegativeCheck === "failure")
             {
-                allHealth(medicalAttribute/4);
+                allHealth(-1/4*medicalAttribute);
                 changeAttribute(-1, "problemAttribute");
                 endGame();
             }
