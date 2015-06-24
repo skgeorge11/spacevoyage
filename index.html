@@ -67,21 +67,18 @@
 		<script src="js/myscript.js"></script>
 	</head>
 	<body>
-		<div id="header_container">
-		    <div class="container">
-			<!-- Header -->
-				<div id="header" class="row">
-					<div class="4u">
-						<div class="transparent">
-							<h1><a href="index.html">Space<span class="header_colour"> Voyage</span></a></h1>
-							<h3>Choose your own adventure and see if you can get the crew back home to earth</h3>
-					    </div>
-					</div>
+		<script>loadLocal();</script>
 
-					<nav id="main-nav" class="8u">
+		<div id="header_container">
+		    <!-- <div class="container"> -->
+			<!-- Header -->
+			<!-- <div class="transparent"> -->
+				<!-- <div  id="header" class="row"> -->
+					<nav id="main-nav" class="inline">
 						<ul>
-							<li><a href="setuppage.html">Setup</a>
-									<ul>
+							<h1 class="inline"><a href="index.html">SpaceVoyage</a></h1>
+							<li><a href="setuppage.html">Customize crew</a>
+									<!-- <ul>
 										<li><a href="">broken</a></li>
 										<li><a href="#">broken</a></li>
 										<li>
@@ -94,15 +91,13 @@
 													<li><a href="#">Sub Drop Down Five</a></li>
 												</ul>
 										</li>
-									</ul>
+									</ul> -->
 							</li>
-							<li><a href="javascript:void(0);" onclick="location.reload();return false">New</a></li>
+							<li><a href="index.html" onclick="window.localStorage.clear()">New</a></li>
 							<li><a href="javascript:void(0);" onclick="saveLocal();return false">Save</a></li>
-							<li><a href="javascript:void(0);" onclick="loadLocal();return false">Load</a></li>
+							<li><a href="index.html" onclick="loadLocal();">Load</a></li>
 						</ul>
 					</nav>
-				</div>
-			</div>
         </div>
 
 		<div id="site_content">
@@ -111,20 +106,10 @@
 				<!-- Features -->
 				<div class="row">
 					<section class="6u">
-
-						<!-- add id ="banner" to div for default sizing -->
-						<div id ="customBanner">
-							<a><img id="banner" src="images/allcrewcartoon.jpg" alt="Crew image" style="width:100%" /></a>
-						</div>
-
-						<h1>Your crew and ship has been displaced to the Gamma quadrant. It is your duty and challenge to get them all home.</h1>
+						<h3 id = "distanceHomeMeter">Your ship is 70,000 light years from home.</h3>
 						<p id="finalResultsDescription">Your crew is far from home, and wondering if they will live to see Earth once more. But you have good health, enough resources, a good ship... and most importantly the courage to attempt the imposible. </p>
-					</section>
-
-					<section class="4u">
-						<div id="sidebar">
 							<section class="12u">
-								<h4 id = "distanceHomeMeter">Your ship is 70,000 light years from home.</h4>
+
 								<h3 id = "episodeTitle">Ready to start?</h3>
 								<h4 id = "episodeDescription">The discription of each episode will be described here.</h4>
 
@@ -140,6 +125,17 @@
 								 <!--<script> fillSelectOptions()</script>-->
 
 							</section>
+						<!-- add id ="banner" to div for default sizing -->
+						<div id ="customBanner">
+							<a><img id="banner" src="images/allcrewcartoon.jpg" alt="Crew image" style="width:100%" /></a>
+						</div>
+
+
+					</section>
+
+					<section class="4u">
+						<div id="sidebar">
+
 							<section class="12u">
 
 								<h3 id ="shipList">Ship</h3>
@@ -157,7 +153,7 @@
 							<section class="12u">
 								<h3>Crew</h3>
 								<ul>
-									<li><a id="captainList" style="color:52b4ff">Captain: </a></li>
+									<li><a id="captainList" style="font:200%">Captain: </a></li>
 										<ul>
 											<li><a id="captainAttributeList" title="leadership score affects episodes that require the captain">Leadership</a></li>
 											<li><a id="captainHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
@@ -187,8 +183,8 @@
 											<li><a id="chiefHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
 										</ul>
 								</ul>
-								<script>updateStats();</script>
 							</section>
+						 <script>updateStats();</script>
 						</div>
 					</section>
 
@@ -200,8 +196,6 @@
 			<!-- Footer -->
 				<footer>
 					<p><img src="images/twitter.png" alt="twitter" />&nbsp;<img src="images/facebook.png" alt="facebook" />&nbsp;<img src="images/rss.png" alt="rss" /></p>
-					<p><a href="index.html">Home</a></p>
-					<p style="color:grey">Copyright &copy; CSS3_tuned | <a href="http://skeljs.org/" style="color:grey">skel.js</a> | <a href="http://www.css3templates.co.uk" style="color:grey">design from css3templates.co.uk</a></p>
 
 				</footer>
 			</div>

@@ -53,11 +53,26 @@ if(typeof(Storage) !== "undefined") {
 // }
 
 function loadLocal () {
-    speedOrigin = localStorage.speedOrigin;
-    speedAttribute = localStorage.speedAttribute;
-    console.log("session Storage speed: " + speedAttribute);
+    // var loadArray =["speedOrigin", "captainName"];
+    // var i =0;
+    // while (i < loadArray.length){
+    //     var loadArrayPoint = window[loadArray[i]];
+    //     if (loadArrayPoint in localStorage)
+    //         {loadArray[i] = localStorage.loadArray[i];
+    //         console.log("load Array changed"+ loadArray[i]);
+    //     }
+    //     ++i;
+    // }
+    if ('captainName' in localStorage) {captainName = localStorage.captainName;
+        console.log("captainName changed");}
+    if ('speedAttribute' in localStorage) {speedAttribute = Number(localStorage.speedAttribute);
+        console.log("speedAtt changed");}
+        if ('weaponAttribute' in localStorage) {weaponAttribute = Number(localStorage.weaponAttribute);
+        console.log("weaponAtt changed");}
+
     updateStats();
     fillSelectOptions();
+    console.log("load run");
 }
 
 function updateStats(){
@@ -96,7 +111,15 @@ function saveLocal () {
     window.localStorage.clear();
     localStorage.speedOrigin = speedOrigin;
     localStorage.speedAttribute = speedAttribute;
-    console.log("local Storage speed " + localStorage.speedAttribute);
+    localStorage.weaponOrigin = weaponOrigin;
+    localStorage.weaponAttribute = weaponAttribute;
+    localStorage.captainName = captainName;
+    console.log("local Storage saved, new speed is " + localStorage.speedAttribute);
+}
+
+function newGame (){
+    window.localStorage.clear();
+    location.reload();
 }
 
 function buildPhrase (buildPhraseName){
@@ -300,11 +323,17 @@ function handleClick()
             changeAttribute(-1, "immediateAttribute");
             updateStats();
             ++firstEpisodeState;
-            episodeTypeState = "originPlot";
+            episodeTypeState = "originPlot"; // redundant i think. can only pass in originPlot.
             txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length)];
             currentEpisodeType =window[txtEpisodeType];
             var episodeProblemTitle = currentEpisodeType.problemTitle;
             $('#episodeTitle').text("Episode " + firstEpisodeState + ": " + episodeProblemTitle);
+            distanceHome = distanceHome - randomNumberGenerator(speedAttribute * 2);
+                if (distanceHome <1) {
+                    endGame();
+                    return;
+                }
+                $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
             fillSelectOptions();
             return;
         }

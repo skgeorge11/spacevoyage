@@ -15,10 +15,10 @@ select {
 }
 
 body {
-	background: #000000 /*url(../images/SpaceBackground.jpg) repeat*/;
+	background: #000003;
 	color: #FFF;
     font: normal .90em 'Droid Sans', arial, sans-serif;
-	line-height: 2em;
+	line-height: 01em;
 }
 
 p {
@@ -113,7 +113,9 @@ ol li {
 }
 
 #header_container {
-    background: transparent url(../images/header.png) repeat;
+    /*background: transparent url(../images/header.png) repeat;*/
+
+            background-color: #000a33;
 	-moz-box-shadow: rgba(0, 0, 0, 0.5)  3px 3px 5px;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 5px;
 	box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 5px;
@@ -121,7 +123,7 @@ ol li {
 
 .transparent {
     background: transparent url(../images/transparent.png) repeat;
-	padding: 0.5em 0.5em 1.5em 1em;
+	/*padding: 0.1em 0.1em 0.1em 0em;*/
 	border-radius: 7px 7px 7px 7px;
 	-moz-border-radius: 7px 7px 7px 7px;
 	-webkit-border: 7px 7px 7px 7px;
@@ -161,12 +163,17 @@ ol li {
 	text-decoration: none;
 }
 
-
+.inline{
+       display: inline;
+}
+#main-nav h1 a {
+  font: normal 200% 'News Cycle', arial, sans-serif;
+}
 #main-nav ul {
     font: normal 120% 'News Cycle', arial;
-	float: left;
+	/*float: left;*/
 	list-style: none;
-	margin-top: 5.2em;
+	margin-top: 0.5em;
 	padding-bottom: 0.5em;
     background: transparent url(../images/transparent.png) repeat;
 	border-radius: 7px 7px 7px 7px;
