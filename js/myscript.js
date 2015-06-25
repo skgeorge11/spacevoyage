@@ -171,6 +171,7 @@ function fillSelectOptions()
         $('select').prop('selectedIndex', 0);
         // console.log( "fillSelectOptions has been run.");
         // console.log(i);
+        //window.location.href = "#resetSpot";
     }
 
 function retrieveAttributeValue()
@@ -199,7 +200,7 @@ function retrieveAttributeValue()
 function adjustAttribute(maxChange)
 {
     var halfMaxChange = maxChange/2;
-    var adjustAttributeValue = (randomNumberGenerator(maxChange));
+    var adjustAttributeValue = (randomNumberGenerator(halfMaxChange));
     return adjustAttributeValue;
 }
 
@@ -298,7 +299,7 @@ function handleClick()
       {
         if (firstEpisodeState === 777) {
             firstEpisodeState = 1;
-            var episodeProblemTitle = currentEpisodeType.problemTitle;
+            var episodeProblemTitle = buildPhrase (currentEpisodeType.problemTitle);
         $('#episodeTitle').text("Episode " + firstEpisodeState + ": " + episodeProblemTitle);
             fillSelectOptions();
             return;
@@ -306,41 +307,58 @@ function handleClick()
 
         var selectValue = (document.getElementById("mySelect").value) -1;
 
-        resourceAttribute-=3;
-
         var resultNegativeCheck  = currentEpisodeType[episodeTypeState].resultNegative[selectValue];
-
         if (resultNegativeCheck === "nextEpisode"){
-            $('#finalResultsDescription').text(currentEpisodeType[episodeTypeState].resultPass);
+            episodeTypeState = "originPlot";
+            var episodePass = buildPhrase (currentEpisodeType[episodeTypeState].resultPass);
+            $('#finalResultsDescription').text(episodePass);
             changeAttribute(-1, "immediateAttribute");
             updateStats();
             ++firstEpisodeState;
-            episodeTypeState = "originPlot"; // redundant i think. can only pass in originPlot.
             txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length)];
             currentEpisodeType =window[txtEpisodeType];
-            var episodeProblemTitle = currentEpisodeType.problemTitle;
+            var episodeProblemTitle = buildPhrase (currentEpisodeType.problemTitle);
             $('#episodeTitle').text("Episode " + firstEpisodeState + ": " + episodeProblemTitle);
             distanceHome = distanceHome - randomNumberGenerator(speedAttribute * 2);
                 if (distanceHome <1) {
                     endGame();
                     return;
                 }
-                $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
+            $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
             fillSelectOptions();
             return;
         }
-
+        if (resultNegativeCheck === "continue"){
+            ++firstEpisodeState;
+            updateStats();
+            txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length)];
+            currentEpisodeType =window[txtEpisodeType];
+            episodeTypeState = "originPlot";
+            var episodeProblemTitle = buildPhrase (currentEpisodeType.problemTitle);
+            $('#episodeTitle').text("Episode " + firstEpisodeState + ": " + episodeProblemTitle);
+            fillSelectOptions();
+            return;
+        }
         if (episodeTypeState === "winner")
         {
             ++firstEpisodeState;
             currentEpisodeType = window[currentEpisodeType[episodeTypeState].resultNegative[selectValue]];
-            var episodeProblemTitle = currentEpisodeType.problemTitle;
+            var episodeProblemTitle = buildPhrase (currentEpisodeType.problemTitle);
             $('#episodeTitle').text("Episode " + firstEpisodeState + ": " + episodeProblemTitle);
             episodeTypeState = "originPlot";
             fillSelectOptions();
             return;
         }
-
+        resourceAttribute-=3;
+         if (speedAttribute<speedOrigin){speedAttribute = speedAttribute + adjustAttribute(chiefAttribute/8);
+                checkAttribute("speedAttribute","speedOrigin");
+          }
+        if (weaponAttribute<weaponOrigin){weaponAttribute =weaponAttribute + adjustAttribute(chiefAttribute/8);
+                    checkAttribute("weaponAttribute", "weaponOrigin");
+                }
+        if (shieldAttribute<shieldOrigin){shieldAttribute = shieldAttribute + adjustAttribute(chiefAttribute/4);
+                    checkAttribute("shieldAttribute","shieldOrigin");
+        }
         var attributeArray = retrieveAttributeValue();
         var attributeTotal = 0;
         $.each(attributeArray,function() {
@@ -368,22 +386,28 @@ function handleClick()
 
             $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
 
-            var episodeResultPositive = currentEpisodeType[episodeTypeState].resultPossitive;
-            $('#finalResultsDescription').text(episodeResultPositive);
             episodeTypeState = "winner";
+
+            var episodeResultPositive = buildPhrase(currentEpisodeType[episodeTypeState].resultPossitive);
+            $('#finalResultsDescription').text(episodeResultPositive);
+            changeAttribute(1,"immediateAttribute");
 
         } else {
 
-            if (resultNegativeCheck === "failure")
-            {
+            if (resultNegativeCheck === "failure"){
+                episodeTypeState = currentEpisodeType[episodeTypeState].resultNegative[selectValue];
                 allHealth(-1/4*medicalAttribute);
                 changeAttribute(-1, "problemAttribute");
+                var episodeFailureDescription = buildPhrase (currentEpisodeType[episodeTypeState].failureText);
+                $('#finalResultsDescription').text(episodeFailureDescription);
                 endGame();
-            }
+            } else {
+                episodeTypeState = currentEpisodeType[episodeTypeState].resultNegative[selectValue];
+                var episodeFailureDescription = buildPhrase (currentEpisodeType[episodeTypeState].failureText);
+                $('#finalResultsDescription').text(episodeFailureDescription);
 
-            $('#finalResultsDescription').text(currentEpisodeType[episodeTypeState].failureText);
-            episodeTypeState = currentEpisodeType[episodeTypeState].resultNegative[selectValue];
-            changeAttribute(-1, "immediateAttribute");
+                changeAttribute(-1, "immediateAttribute");
+            }
             //console.log (episodeTypeState);
         }
         //console.log( "The correct Answer was number " + correctAnswerRoll);

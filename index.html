@@ -106,12 +106,12 @@
 				<!-- Features -->
 				<div class="row">
 					<section class="6u">
-						<h3 id = "distanceHomeMeter">Your ship is 70,000 light years from home.</h3>
+						<h3 id = "distanceHomeMeter" name="resetSpot">Your ship is 70,000 light years from home.</h3>
 						<p id="finalResultsDescription">Your crew is far from home, and wondering if they will live to see Earth once more. But you have good health, enough resources, a good ship... and most importantly the courage to attempt the imposible. </p>
 							<section class="12u">
 
 								<h3 id = "episodeTitle">Ready to start?</h3>
-								<h4 id = "episodeDescription">The discription of each episode will be described here.</h4>
+								<h4 id = "episodeDescription"></h4>
 
 								<select id="mySelect" onchange="handleClick()">
 									  <option disabled selected> -- What are your orders capatin? -- </option>
@@ -138,13 +138,13 @@
 
 							<section class="12u">
 
-								<h3 id ="shipList">Ship</h3>
+								<h3 id ="shipList" title="Name of your vessel">Ship</h3>
 								<ul>
 									<li id = "shipSpeedList" title="This is how many light years your ship travels at warp 1. Luckily you will travel at warp 8 between episodes.">Speed</li>
 
-									<li id = "shipWeaponList" title="">Weapons</li>
+									<li id = "shipWeaponList" title="A high weapons value will help on missions that involve fighting">Weapons</li>
 
-									<li id = "shipShieldList" title="">Shields</li>
+									<li id = "shipShieldList" title="The higher the shield value, the more your damage will be reduced when recieved">Shields</li>
 
 									<li id = "shipResourceList" title="Resources represents life support and food. If resources reaches 0 the crew will perish.">Resources</li>
 
@@ -153,34 +153,34 @@
 							<section class="12u">
 								<h3>Crew</h3>
 								<ul>
-									<li><a id="captainList" style="font:200%">Captain: </a></li>
+									<li><a id="captainList" style="font:200%" title="Your name">Captain: </a></li>
 										<ul>
-											<li><a id="captainAttributeList" title="leadership score affects episodes that require the captain">Leadership</a></li>
-											<li><a id="captainHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
+											<li><a id="captainAttributeList" title="this score affects episodes that require the captain. A higher value is beter.">Leadership</a></li>
+											<li><a id="captainHealthList" title="less that 100 health detracts from the crew members ability. At 0 your captain dies, and you lose.">Health</a></li>
 										</ul>
 									<li><a id="firstMateList">First-mate: </a></li>
 
 										<ul>
-											<li><a id="firstAttributeList">Negotiation</a></li>
-											<li><a id="firstHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
+											<li><a id="firstAttributeList" title="this score affects episodes that require the captain. A higher value is beter.">Negotiation</a></li>
+											<li><a id="firstHealthList" title="less that 100 health detracts from the crew members ability. At 0 they fall unconscious and can no longer help on missions.">Health</a></li>
 										</ul>
 									<li><a id="securityList">Security Officer: </a></li>
 
 										<ul>
-											<li><a id="securityAttributeList">Tatics</a></li>
-											<li><a id="securityHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
+											<li><a id="securityAttributeList" title="this score affects episodes that require the captain. A higher value is beter.">Tatics</a></li>
+											<li><a id="securityHealthList" title="less that 100 health detracts from the crew members ability. At 0 they fall unconscious and can no longer help on missions.">Health</a></li>
 										</ul>
 									<li><a id="medicalList">Medical Officer: </a></li>
 
 										<ul>
-											<li><a id="medicalAttributeList">Medicine</a></li>
-											<li><a id="medicalHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
+											<li><a id="medicalAttributeList" title="this score will slowly heal the crew every episode. A higher value is beter.">Medicine</a></li>
+											<li><a id="medicalHealthList" title="less that 100 health detracts from the crew members ability. At 0 they fall unconscious and can no longer help on missions.">Health</a></li>
 										</ul>
 									<li><a id="chiefList">Chief Engineer: </a></li>
 
 										<ul>
-											<li><a id="chiefAttributeList">Engineering</a></li>
-											<li><a id="chiefHealthList" title="less that 100 health detracts from the crew members ability.">Health</a></li>
+											<li><a id="chiefAttributeList" title="this score will slowly repair Speed, Weapons and Shields each episode. A higher value is beter.">Engineering</a></li>
+											<li><a id="chiefHealthList" title="less that 100 health detracts from the crew members ability. At 0 they fall unconscious and can no longer help on missions.">Health</a></li>
 										</ul>
 								</ul>
 							</section>
