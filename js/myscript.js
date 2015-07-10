@@ -18,6 +18,8 @@ var medicalOrigin = medicalAttribute = 30;
 var medicalHealthOrigin = medicalHealthAttribute = 100;
 var chiefOrigin = chiefAttribute = 40;
 var chiefHealthOrigin = chiefHealthAttribute = 100;
+var allStatArray =["speedOrigin" , "speedAttribute","weaponOrigin","weaponAttribute", "shieldOrigin","shieldAttribute","resourceOrigin","resourceAttribute","firstEpisodeState","captainOrigin","captainAttribute","captainHealthOrigin","captainHealthAttribute","firstMateOrigin","firstMateAttribute","firstHealthOrigin","firstHealthAttribute","securityOrigin","securityAttribute","securityHealthOrigin","securityHealthAttribute","medicalOrigin","medicalAttribute","medicalHealthOrigin","medicalHealthAttribute","chiefOrigin","chiefAttribute","chiefHealthOrigin","chiefHealthAttribute"];
+var allListArray = ["shipSpeedList","shipWeaponList","shipShieldList","shipResourceList","captainAttributeList","captainHealthList","firstAttributeList","firstHealthList","securityAttributeList","securityHealthList","medicalAttributeList","medicalHealthList","chiefAttributeList","chiefHealthList"];
 
 var randomObjectLength = totalObjectType.length;
 var txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length)];
@@ -42,7 +44,8 @@ if(typeof(Storage) !== "undefined") {
 function loadLocal () {
     var stringArray =["shipName","captainName","firstMateName","securityName","medicalName","chiefName"];
     // add ,"episodeTypeState","currentEpisodeType"
-    var numberArray =["speedOrigin" , "speedAttribute","weaponOrigin","weaponAttribute", "shieldOrigin","shieldAttribute","resourceOrigin","resourceAttribute","firstEpisodeState","captainOrigin","captainAttribute","captainHealthOrigin","captainHealthAttribute","firstMateOrigin","firstMateAttribute","firstHealthOrigin","firstHealthAttribute","securityOrigin","securityAttribute","securityHealthOrigin","securityHealthAttribute","medicalOrigin","medicalAttribute","medicalHealthOrigin","medicalHealthAttribute","chiefOrigin","chiefAttribute","chiefHealthOrigin","chiefHealthAttribute"];
+
+    //var numberArray =["speedOrigin" , "speedAttribute","weaponOrigin","weaponAttribute", "shieldOrigin","shieldAttribute","resourceOrigin","resourceAttribute","firstEpisodeState","captainOrigin","captainAttribute","captainHealthOrigin","captainHealthAttribute","firstMateOrigin","firstMateAttribute","firstHealthOrigin","firstHealthAttribute","securityOrigin","securityAttribute","securityHealthOrigin","securityHealthAttribute","medicalOrigin","medicalAttribute","medicalHealthOrigin","medicalHealthAttribute","chiefOrigin","chiefAttribute","chiefHealthOrigin","chiefHealthAttribute"];
     var i = 0;
     var y = 0;
     while (i < stringArray.length){
@@ -53,11 +56,11 @@ function loadLocal () {
         }
         ++i
     }
-    while (y < numberArray.length){
-        var numberValue = numberArray[y];
+    while (y < allStatArray.length){
+        var numberValue = allStatArray[y];
         if (numberValue in localStorage) {
             var numberPoint = window[numberValue];
-            window[numberArray[y]]= Number(localStorage[numberValue]);
+            window[allStatArray[y]]= Number(localStorage[numberValue]);
         }
         ++y
     }
@@ -212,6 +215,11 @@ function checkAttribute(tempAttributeNew, tempAttributeOrigin){
 
 function changeAttribute(negOrPos, attributeType)
 {
+    for(var w in allListArray) {document.getElementById(allListArray[w]).style.color = "white";}
+
+    var colorType = "green";
+    if (negOrPos <1){colorType = "red";}
+
     if (attributeType === "problemAttribute"){
         var pointAttributeType = currentEpisodeType[episodeTypeState].problemAttribute;
     }
@@ -224,46 +232,74 @@ function changeAttribute(negOrPos, attributeType)
     var i = 1;
             while (i < currentProblemAttributeLength){
                 // manually enter each attribute type
-                if (pointAttributeType[i]==="speedAttribute"){speedAttribute = speedAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="speedAttribute"){
+                    document.getElementById("shipSpeedList").style.color = colorType;
+                    speedAttribute = speedAttribute + adjustAttribute(changeModifier);
                     checkAttribute("speedAttribute","speedOrigin");
                 }
-                if (pointAttributeType[i]==="weaponAttribute"){weaponAttribute =weaponAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="weaponAttribute"){
+                    document.getElementById("shipWeaponList").style.color = colorType;
+                    weaponAttribute =weaponAttribute + adjustAttribute(changeModifier);
                     checkAttribute("weaponAttribute", "weaponOrigin");
                 }
-                if (pointAttributeType[i]==="shieldAttribute"){shieldAttribute = shieldAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="shieldAttribute"){
+                    document.getElementById("shipShieldList").style.color = colorType;
+                    shieldAttribute = shieldAttribute + adjustAttribute(changeModifier);
                     checkAttribute("shieldAttribute","shieldOrigin");
                 }
-                if (pointAttributeType[i]==="resourceAttribute"){resourceAttribute = resourceAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="resourceAttribute"){
+                    document.getElementById("shipResourceList").style.color = colorType;
+                    resourceAttribute = resourceAttribute + adjustAttribute(changeModifier);
                     checkAttribute("resourceAttribute" , "resourceOrigin");
                 }
-                if (pointAttributeType[i]==="captainAttribute"){captainAttribute =captainAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="captainAttribute"){
+                    document.getElementById("captainAttributeList").style.color = colorType;
+                    captainAttribute =captainAttribute + adjustAttribute(changeModifier);
                     checkAttribute("captainAttribute","captainOrigin");
                 }
-                if (pointAttributeType[i]==="captainHealthAttribute"){captainHealthAttribute =captainHealthAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="captainHealthAttribute"){
+                    document.getElementById("captainHealthList").style.color = colorType;
+                    captainHealthAttribute =captainHealthAttribute + adjustAttribute(changeModifier);
                     checkAttribute("captainHealthAttribute", "captainHealthOrigin");
                 }
-                if (pointAttributeType[i]==="firstMateAttribute"){firstMateAttribute =firstMateAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="firstMateAttribute"){
+                    document.getElementById("firstAttributeList").style.color = colorType;
+                    firstMateAttribute =firstMateAttribute + adjustAttribute(changeModifier);
                     checkAttribute("firstMateAttribute","firstMateOrigin");
                 }
-                if (pointAttributeType[i]==="firstHealthAttribute"){firstHealthAttribute =firstHealthAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="firstHealthAttribute"){
+                    document.getElementById("firstHealthList").style.color = colorType;
+                    firstHealthAttribute =firstHealthAttribute + adjustAttribute(changeModifier);
                     checkAttribute("firstHealthAttribute","firstHealthOrigin");
                 }
-                if (pointAttributeType[i]==="securityAttribute"){securityAttribute =securityAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="securityAttribute"){
+                    document.getElementById("securityAttributeList").style.color = colorType;
+                    securityAttribute =securityAttribute + adjustAttribute(changeModifier);
                     checkAttribute("securityAttribute", "securityOrigin");
                 }
-                if (pointAttributeType[i]==="securityHealthAttribute"){securityHealthAttribute =securityHealthAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="securityHealthAttribute"){
+                    document.getElementById("securityHealthList").style.color = colorType;
+                    securityHealthAttribute =securityHealthAttribute + adjustAttribute(changeModifier);
                     checkAttribute("securityHealthAttribute","securityHealthOrigin");
                 }
-                if (pointAttributeType[i]==="medicalAttribute"){medicalAttribute =medicalAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="medicalAttribute"){
+                    document.getElementById("medicalAttributeList").style.color = colorType;
+                    medicalAttribute =medicalAttribute + adjustAttribute(changeModifier);
                     checkAttribute("medicalAttribute", "medicalOrigin");
                 }
-                if (pointAttributeType[i]==="medicalHealthAttribute"){medicalHealthAttribute =medicalHealthAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="medicalHealthAttribute"){
+                    document.getElementById("medicalHealthList").style.color = colorType;
+                    medicalHealthAttribute =medicalHealthAttribute + adjustAttribute(changeModifier);
                     checkAttribute("medicalHealthAttribute","medicalHealthOrigin");
                 }
-                if (pointAttributeType[i]==="chiefAttribute"){chiefAttribute =chiefAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="chiefAttribute"){
+                    document.getElementById("chiefAttributeList").style.color = colorType;
+                    chiefAttribute =chiefAttribute + adjustAttribute(changeModifier);
                     checkAttribute("chiefAttribute","chiefOrigin");
                 }
-                if (pointAttributeType[i]==="chiefHealthAttribute"){chiefHealthAttribute =chiefHealthAttribute + adjustAttribute(changeModifier);
+                if (pointAttributeType[i]==="chiefHealthAttribute"){
+                    document.getElementById("chiefHealthList").style.color = colorType;
+                    chiefHealthAttribute =chiefHealthAttribute + adjustAttribute(changeModifier);
                     checkAttribute("chiefHealthAttribute","chiefHealthOrigin");
                 }
                 if (pointAttributeType[i]==="allHealthAttribute"){allHealth(changeModifier);}
@@ -274,6 +310,12 @@ function changeAttribute(negOrPos, attributeType)
 
 function allShip (modValue){ // a value of max damage typically would be passed.
     var shipArray = ["speedAttribute","weaponAttribute","resourceAttribute","shieldAttribute"];
+    var colorType ="red";
+    if (modValue>0){colorType ="green";}
+    document.getElementById("shipSpeedList").style.color = colorType;
+    document.getElementById("shipWeaponList").style.color = colorType;
+    document.getElementById("shipShieldList").style.color = colorType;
+    document.getElementById("shipResourceList").style.color = colorType;
     var i =0;
     var shieldAdjust = modValue *((110 - shieldAttribute)/100); // this make a higher shield number better at reducing damage
     while (i<shipArray.length){
@@ -286,6 +328,14 @@ function allShip (modValue){ // a value of max damage typically would be passed.
 
 function allHealth(modValue){
     var healthArray = ["captainHealthAttribute","firstHealthAttribute","securityHealthAttribute","chiefHealthAttribute","medicalHealthAttribute"];
+    var colorType ="green";
+    if (modValue<1){colorType ="red";}
+    document.getElementById("captainHealthList").style.color = colorType;
+    document.getElementById("firstHealthList").style.color = colorType;
+    document.getElementById("securityHealthList").style.color = colorType;
+    document.getElementById("medicalHealthList").style.color = colorType;
+    document.getElementById("chiefHealthList").style.color = colorType;
+
     var i =0;
     while (i<healthArray.length){
         window[healthArray[i]] += randomNumberGenerator(modValue); // most of the time medicine should be passed to modValue
@@ -373,10 +423,11 @@ function handleClick()
         var currentProblemAttributeLength = currentEpisodeType[episodeTypeState].problemAttribute.length;
 
         if (correctAnswerThreshold > correctAnswerRoll){
-            allHealth(medicalAttribute/2);
-            if (firstEpisodeState > 172){endGame(); return;}
+            if (firstEpisodeState > 172){
+                endGame(); return;}
 
             changeAttribute(1, "problemAttribute");
+            allHealth(medicalAttribute/2);
 
             distanceHome = distanceHome - randomNumberGenerator(speedAttribute * 16);
                 if (distanceHome <1) {
@@ -396,8 +447,8 @@ function handleClick()
 
             if (resultNegativeCheck === "failure"){
                 episodeTypeState = currentEpisodeType[episodeTypeState].resultNegative[selectValue];
-                allHealth(-1/4*medicalAttribute);
                 changeAttribute(-1, "problemAttribute");
+                allHealth(-1/4*medicalAttribute);
                 var episodeFailureDescription = buildPhrase (currentEpisodeType[episodeTypeState].failureText);
                 $('#finalResultsDescription').text(episodeFailureDescription);
                 endGame();
