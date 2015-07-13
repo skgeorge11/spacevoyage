@@ -2,6 +2,14 @@
 var firstEpisodeState = 777;
 var innerEpisodeState = "";
 
+// below list a temp var for each episode random item
+var episoderandomName =0;
+var episoderandomMadeObject =0;
+var episoderandomResource = 0;
+var episoderandomItem =0;
+var episoderandomJob = 0;
+var episoderandomRace = 0;
+
 var changeModifier = 1;
 var speedOrigin = speedAttribute = 50;
 var weaponOrigin = weaponAttribute = 40;
@@ -66,7 +74,6 @@ function loadLocal () {
     }
     updateStats();
     fillSelectOptions();
-    console.log(currentEpisodeType + " : " + episodeTypeState);
 }
 
 function updateStats(){
@@ -130,11 +137,21 @@ function buildPhrase (buildPhraseName){
             //console.log (totalObjectType[y]);
             if (checkPhrasePiece === totalObjectType[y]){
                 var phrasePieceObject = window[checkPhrasePiece];
+                var episodeRandomString ="episode"+checkPhrasePiece;
+                //console.log(episodeRandomString);
+                var episodeRandomCheck = window[episodeRandomString];
+                //console.log(episodeRandomCheck);
                 if (typeof phrasePieceObject == "object"){
-                    //console.log("piece is an array");
-                    var madLibLength = phrasePieceObject.length -1; // subtract 1 if you are finding the array positions
-                    var madLibPlace = randomNumberGenerator(madLibLength);
-                    checkPhrasePiece = phrasePieceObject[madLibPlace];
+                    if(episodeRandomCheck == 0){
+                        var madLibLength = phrasePieceObject.length -1; // subtract 1 if you are finding the array positions
+                        var madLibPlace = randomNumberGenerator(madLibLength);
+                        checkPhrasePiece = phrasePieceObject[madLibPlace];
+                        window[episodeRandomString] = checkPhrasePiece;
+                        //console.log(checkPhrasePiece);
+                    }else{
+                        checkPhrasePiece = episodeRandomCheck;
+                        //console.log("matched build phrase chunk to existing variable.")
+                    }
                 } else{
                     checkPhrasePiece = phrasePieceObject;
                     //console.log("its a string");
@@ -215,7 +232,7 @@ function checkAttribute(tempAttributeNew, tempAttributeOrigin){
 
 function changeAttribute(negOrPos, attributeType)
 {
-    for(var w in allListArray) {document.getElementById(allListArray[w]).style.color = "white";}
+    //for(var w in allListArray) {document.getElementById(allListArray[w]).style.color = "white";}
 
     var colorType = "green";
     if (negOrPos <1){colorType = "red";}
@@ -345,6 +362,16 @@ function allHealth(modValue){
     //--i; console.log("allHealth ran: " + healthArray[i]);
 }
 
+function resetEpisodeRandom ()
+    {
+        episoderandomName =0;
+        episoderandomMadeObject =0;
+        episoderandomResource = 0;
+        episoderandomItem =0;
+        episoderandomJob = 0;
+        episoderandomRace = 0;
+    }
+
 function handleClick()
       {
         if (firstEpisodeState === 777) {
@@ -359,6 +386,7 @@ function handleClick()
 
         var resultNegativeCheck  = currentEpisodeType[episodeTypeState].resultNegative[selectValue];
         if (resultNegativeCheck === "nextEpisode"){
+            resetEpisodeRandom();
             episodeTypeState = "originPlot";
             var episodePass = buildPhrase (currentEpisodeType[episodeTypeState].resultPass);
             $('#finalResultsDescription').text(episodePass);
@@ -383,6 +411,7 @@ function handleClick()
             updateStats();
             txtEpisodeType = episodeType[randomNumberGenerator(episodeType.length)];
             currentEpisodeType =window[txtEpisodeType];
+            resetEpisodeRandom();
             episodeTypeState = "originPlot";
             var episodeProblemTitle = buildPhrase (currentEpisodeType.problemTitle);
             $('#episodeTitle').text("Episode " + firstEpisodeState + ": " + episodeProblemTitle);
@@ -395,18 +424,28 @@ function handleClick()
             currentEpisodeType = window[currentEpisodeType[episodeTypeState].resultNegative[selectValue]];
             var episodeProblemTitle = buildPhrase (currentEpisodeType.problemTitle);
             $('#episodeTitle').text("Episode " + firstEpisodeState + ": " + episodeProblemTitle);
+            resetEpisodeRandom();
             episodeTypeState = "originPlot";
             fillSelectOptions();
             return;
         }
+
         resourceAttribute-=3;
-         if (speedAttribute<speedOrigin){speedAttribute = speedAttribute + adjustAttribute(chiefAttribute/8);
+        document.getElementById("shipResourceList").style.color = "red";
+
+         if (speedAttribute<speedOrigin){
+                document.getElementById("shipSpeedList").style.color = "green";
+                speedAttribute = speedAttribute + adjustAttribute(chiefAttribute/8);
                 checkAttribute("speedAttribute","speedOrigin");
           }
-        if (weaponAttribute<weaponOrigin){weaponAttribute =weaponAttribute + adjustAttribute(chiefAttribute/8);
+        if (weaponAttribute<weaponOrigin){
+            document.getElementById("shipWeaponList").style.color = "green";
+            weaponAttribute =weaponAttribute + adjustAttribute(chiefAttribute/8);
                     checkAttribute("weaponAttribute", "weaponOrigin");
                 }
-        if (shieldAttribute<shieldOrigin){shieldAttribute = shieldAttribute + adjustAttribute(chiefAttribute/4);
+        if (shieldAttribute<shieldOrigin){
+            document.getElementById("shipShieldList").style.color = "green";
+            shieldAttribute = shieldAttribute + adjustAttribute(chiefAttribute/4);
                     checkAttribute("shieldAttribute","shieldOrigin");
         }
         var attributeArray = retrieveAttributeValue();
