@@ -249,6 +249,13 @@ function changeAttribute(negOrPos, attributeType)
     var i = 1;
             while (i < currentProblemAttributeLength){
                 // manually enter each attribute type
+                if(pointAttributeType[i]==="decreaseDistance"){
+                    distanceHome -= 400*(randomNumberGenerator(changeModifier)+changeModifier);
+                    if (distanceHome <1) {
+                        endGame();
+                        return;}
+                    $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
+                }
                 if (pointAttributeType[i]==="speedAttribute"){
                     document.getElementById("shipSpeedList").style.color = colorType;
                     speedAttribute = speedAttribute + adjustAttribute(changeModifier);
