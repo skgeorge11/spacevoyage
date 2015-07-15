@@ -26,7 +26,7 @@ var medicalOrigin = medicalAttribute = 30;
 var medicalHealthOrigin = medicalHealthAttribute = 100;
 var chiefOrigin = chiefAttribute = 40;
 var chiefHealthOrigin = chiefHealthAttribute = 100;
-var allStatArray =["speedOrigin" , "speedAttribute","weaponOrigin","weaponAttribute", "shieldOrigin","shieldAttribute","resourceOrigin","resourceAttribute","firstEpisodeState","captainOrigin","captainAttribute","captainHealthOrigin","captainHealthAttribute","firstMateOrigin","firstMateAttribute","firstHealthOrigin","firstHealthAttribute","securityOrigin","securityAttribute","securityHealthOrigin","securityHealthAttribute","medicalOrigin","medicalAttribute","medicalHealthOrigin","medicalHealthAttribute","chiefOrigin","chiefAttribute","chiefHealthOrigin","chiefHealthAttribute"];
+var allStatArray =["speedOrigin" , "speedAttribute","weaponOrigin","weaponAttribute", "shieldOrigin","shieldAttribute","resourceOrigin","resourceAttribute","firstEpisodeState","captainOrigin","captainAttribute","captainHealthOrigin","captainHealthAttribute","firstMateOrigin","firstMateAttribute","firstHealthOrigin","firstHealthAttribute","securityOrigin","securityAttribute","securityHealthOrigin","securityHealthAttribute","medicalOrigin","medicalAttribute","medicalHealthOrigin","medicalHealthAttribute","chiefOrigin","chiefAttribute","chiefHealthOrigin","chiefHealthAttribute","distanceHome"];
 var allListArray = ["shipSpeedList","shipWeaponList","shipShieldList","shipResourceList","captainAttributeList","captainHealthList","firstAttributeList","firstHealthList","securityAttributeList","securityHealthList","medicalAttributeList","medicalHealthList","chiefAttributeList","chiefHealthList"];
 
 var randomObjectLength = totalObjectType.length;
@@ -78,6 +78,7 @@ function loadLocal () {
 
 function updateStats(){
     $('#shipList').text(shipName);
+    $('#distanceHomeMeter').text("Your ship is now " + distanceHome + " light years from home.");
     $('#shipSpeedList').text("Speed: (" +speedOrigin + ")" + speedAttribute );
     $('#shipWeaponList').text("Weapons: (" +weaponOrigin + ")" + weaponAttribute );
     $('#shipShieldList').text("Shields: (" +shieldOrigin + ")" + shieldAttribute );
@@ -110,7 +111,7 @@ function saveLocal () {
         return;
     }
     window.localStorage.clear();
-    var localArray = ["shipName","captainName","firstMateName","securityName","medicalName","chiefName","episodeTypeState","currentEpisodeType","speedOrigin" , "speedAttribute","weaponOrigin","weaponAttribute", "shieldOrigin","shieldAttribute","resourceOrigin","resourceAttribute","firstEpisodeState","captainOrigin","captainAttribute","captainHealthOrigin","captainHealthAttribute","firstMateOrigin","firstMateAttribute","firstHealthOrigin","firstHealthAttribute","securityOrigin","securityAttribute","securityHealthOrigin","securityHealthAttribute","medicalOrigin","medicalAttribute","medicalHealthOrigin","medicalHealthAttribute","chiefOrigin","chiefAttribute","chiefHealthOrigin","chiefHealthAttribute"];
+    var localArray = ["distanceHome","shipName","captainName","firstMateName","securityName","medicalName","chiefName","episodeTypeState","currentEpisodeType","speedOrigin" , "speedAttribute","weaponOrigin","weaponAttribute", "shieldOrigin","shieldAttribute","resourceOrigin","resourceAttribute","firstEpisodeState","captainOrigin","captainAttribute","captainHealthOrigin","captainHealthAttribute","firstMateOrigin","firstMateAttribute","firstHealthOrigin","firstHealthAttribute","securityOrigin","securityAttribute","securityHealthOrigin","securityHealthAttribute","medicalOrigin","medicalAttribute","medicalHealthOrigin","medicalHealthAttribute","chiefOrigin","chiefAttribute","chiefHealthOrigin","chiefHealthAttribute"];
     var i = 0;
     while (i < localArray.length){
         localStorage[localArray[i]] = window[localArray[i]];
@@ -437,7 +438,7 @@ function handleClick()
             return;
         }
 
-        resourceAttribute-=3;
+        resourceAttribute-=randomNumberGenerator(5);
         document.getElementById("shipResourceList").style.color = "red";
 
          if (speedAttribute<speedOrigin){
@@ -460,9 +461,9 @@ function handleClick()
         $.each(attributeArray,function() {
             attributeTotal += this;
         });
-        var attributeModifier = Math.floor((attributeTotal / attributeArray.length) / 3);
+        var attributeModifier = Math.floor((attributeTotal / attributeArray.length) / 8);
         //console.log("the attributeModifier is " + attributeModifier);
-        var correctAnswerThreshold = 35 + attributeModifier;
+        var correctAnswerThreshold = 40 + attributeModifier;
         //console.log ("the threshold is "+ correctAnswerThreshold);
         var correctAnswerRoll = randomNumberGenerator(100);
 
@@ -504,6 +505,7 @@ function handleClick()
                 $('#finalResultsDescription').text(episodeFailureDescription);
 
                 changeAttribute(-1, "immediateAttribute");
+                endGame();
             }
             //console.log (episodeTypeState);
         }
@@ -515,5 +517,16 @@ function handleClick()
 
 function endGame ()
 {
-    //dont know yet.
+    if (firstEpisodeState > 172){
+            document.location.href = "win.html"
+      }
+     if (distanceHome <1) {
+            document.location.href = "win.html"
+     }
+     if(resourceAttribute <1){
+            document.location.href = "fail.html"
+     }
+        if(captainAttribute <1){
+            document.location.href = "fail.html"
+        }
 }
